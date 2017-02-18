@@ -2,14 +2,17 @@ package banking.primitive.core;
 
 public class Savings extends Account {
 	private static final long serialVersionUID = 111L;
-	private int numWithdraws = 0;
-
+	
 	public Savings(String name) {
 		super(name);
 	}
 
 	public Savings(String name, float balance) throws IllegalArgumentException {
 		super(name, balance);
+	}
+	
+	public String getType() { 
+		return "Checking";
 	}
 
 	/**
@@ -23,6 +26,10 @@ public class Savings extends Account {
 			}
 		}
 		return false;
+	}
+	
+	public String toString() {
+		return "Savings: " + getName() + ": " + getBalance();
 	}
 
 	/**
@@ -44,9 +51,5 @@ public class Savings extends Account {
 		return false;
 	}
 	
-	public String getType() { return "Checking"; }
-
-	public String toString() {
-		return "Savings: " + getName() + ": " + getBalance();
-	}
+	private int numWithdraws = 0;
 }

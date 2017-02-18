@@ -13,19 +13,6 @@ import javax.swing.*;
 
 @SuppressWarnings("serial")
 class MainFrame extends JFrame {
-	AccountServer	myServer;
-	Properties		props;
-	JLabel			typeLabel;
-	JLabel			nameLabel;
-	JLabel			balanceLabel;
-	JComboBox		typeOptions;
-	JTextField		nameField;
-	JTextField		balanceField;
-	JButton 		depositButton;
-	JButton 		withdrawButton;
-	JButton			newAccountButton;
-	JButton			displayAccountsButton;
-	JButton			displayODAccountsButton;
 
 	public MainFrame(String propertyFile) throws IOException {
 
@@ -46,6 +33,90 @@ class MainFrame extends JFrame {
 		constructForm();
 	}
 
+	class DisplayHandler implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			List<Account> accounts = null;
+			if (e.getSource() == displayAccountsButton) {
+				accounts = myServer.getActiveAccounts();
+			} else {
+				accounts = myServer.getAllAccounts();
+			}
+			StringBuffer sb = new StringBuffer();
+			Account thisAcct = null;
+			for (Iterator<Account> li = accounts.iterator(); li.hasNext();) {
+				thisAcct = (Account)li.next();
+				sb.append(thisAcct.toString()+"\n");
+			}
+
+			JOptionPane.showMessageDialog(null, sb.toString());
+		}
+	}
+	
+	// Complete a handler for deposit button
+	class DepositHandler implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			String name = nameField.getText();
+			String balance = balanceField.getText();
+			Account acc = myServer.getAccount(name);
+			if (acc != null && acc.deposit(Float.parseFloat(balance))) {
+				JOptionPane.showMessageDialog(null, "Deposit successful");
+			} else {
+				JOptionPane.showMessageDialog(null, "Deposit unsuccessful");
+			}		
+		}
+	}
+	
+	//** Complete a handler for the Frame that terminates 
+	//** (System.exit(1)) on windowClosing event
+
+	static class FrameHandler extends WindowAdapter {
+		public void windowClosing(WindowEvent e) {
+
+			System.exit(0);
+		}
+	}
+
+	// Complete a handler for new account button
+	class NewAccountHandler implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			String type = typeOptions.getSelectedItem().toString();
+			String name = nameField.getText();
+			String balance = balanceField.getText();
+
+			if (myServer.newAccount(type, name, Float.parseFloat(balance))) {
+				JOptionPane.showMessageDialog(null, "Account created successfully");
+			} else {
+				JOptionPane.showMessageDialog(null, "Account not created!");
+			}
+		}
+	}
+	
+	// Complete a handler for new account button
+	class SaveAccountsHandler implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			try {
+				myServer.saveAccounts();
+				JOptionPane.showMessageDialog(null, "Accounts saved");
+			} catch (IOException exc) {
+				JOptionPane.showMessageDialog(null, "Error saving accounts");
+			}
+		}
+	}
+
+	
+	// Complete a handler for deposit button
+	class WithdrawHandler implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			String name = nameField.getText();
+			String balance = balanceField.getText();
+			Account acc = myServer.getAccount(name);
+			if (acc != null && acc.withdraw(Float.parseFloat(balance))) {
+				JOptionPane.showMessageDialog(null, "Withdrawal successful");
+			} else {
+				JOptionPane.showMessageDialog(null, "Withdrawal unsuccessful");
+			}		
+		}
+	}
 	
 	private void constructForm() {
 		//*** Make these read from properties
@@ -106,87 +177,18 @@ class MainFrame extends JFrame {
 		
 		setSize(400, 250);
 	}
-
-	class DisplayHandler implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			List<Account> accounts = null;
-			if (e.getSource() == displayAccountsButton) {
-				accounts = myServer.getActiveAccounts();
-			} else {
-				accounts = myServer.getAllAccounts();
-			}
-			StringBuffer sb = new StringBuffer();
-			Account thisAcct = null;
-			for (Iterator<Account> li = accounts.iterator(); li.hasNext();) {
-				thisAcct = (Account)li.next();
-				sb.append(thisAcct.toString()+"\n");
-			}
-
-			JOptionPane.showMessageDialog(null, sb.toString());
-		}
-	}
-
-	// Complete a handler for new account button
-	class NewAccountHandler implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			String type = typeOptions.getSelectedItem().toString();
-			String name = nameField.getText();
-			String balance = balanceField.getText();
-
-			if (myServer.newAccount(type, name, Float.parseFloat(balance))) {
-				JOptionPane.showMessageDialog(null, "Account created successfully");
-			} else {
-				JOptionPane.showMessageDialog(null, "Account not created!");
-			}
-		}
-	}
 	
-	// Complete a handler for new account button
-	class SaveAccountsHandler implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			try {
-				myServer.saveAccounts();
-				JOptionPane.showMessageDialog(null, "Accounts saved");
-			} catch (IOException exc) {
-				JOptionPane.showMessageDialog(null, "Error saving accounts");
-			}
-		}
-	}
-
-	// Complete a handler for deposit button
-	class DepositHandler implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			String name = nameField.getText();
-			String balance = balanceField.getText();
-			Account acc = myServer.getAccount(name);
-			if (acc != null && acc.deposit(Float.parseFloat(balance))) {
-				JOptionPane.showMessageDialog(null, "Deposit successful");
-			} else {
-				JOptionPane.showMessageDialog(null, "Deposit unsuccessful");
-			}		
-		}
-	}
-	// Complete a handler for deposit button
-	class WithdrawHandler implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			String name = nameField.getText();
-			String balance = balanceField.getText();
-			Account acc = myServer.getAccount(name);
-			if (acc != null && acc.withdraw(Float.parseFloat(balance))) {
-				JOptionPane.showMessageDialog(null, "Withdrawal successful");
-			} else {
-				JOptionPane.showMessageDialog(null, "Withdrawal unsuccessful");
-			}		
-		}
-	}
-	
-	//** Complete a handler for the Frame that terminates 
-	//** (System.exit(1)) on windowClosing event
-
-	static class FrameHandler extends WindowAdapter {
-		public void windowClosing(WindowEvent e) {
-
-			System.exit(0);
-		}
-	}
+	AccountServer	myServer;
+	Properties		props;
+	JLabel			typeLabel;
+	JLabel			nameLabel;
+	JLabel			balanceLabel;
+	JComboBox		typeOptions;
+	JTextField		nameField;
+	JTextField		balanceField;
+	JButton 		depositButton;
+	JButton 		withdrawButton;
+	JButton			newAccountButton;
+	JButton			displayAccountsButton;
+	JButton			displayODAccountsButton;
 }

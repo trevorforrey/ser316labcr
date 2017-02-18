@@ -3,14 +3,6 @@ package banking.primitive.core;
 public abstract class Account implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
 
-    protected enum State {
-        OPEN, CLOSED, OVERDRAWN
-    };
-
-    protected float balance = 0.0F;
-    protected String name;
-    private State state;
-
     protected Account(String n) {
         name = n;
         state = State.OPEN;
@@ -22,19 +14,28 @@ public abstract class Account implements java.io.Serializable {
     }
 
     /**
-     * @return name of the Account
-     */
-    public final String getName() {
-        return name;
-    }
-
-    /**
      * @return balance in the Account
      */
     public final float getBalance() {
         return balance;
     }
 
+    /**
+     * @return name of the Account
+     */
+    public final String getName() {
+        return name;
+    }
+    
+    protected final State getState() {
+        return state;
+    }
+    
+    /**
+     * @return either "Checking" or "Savings"
+     */
+    public abstract String getType();
+    
     /**
      * Adds money to an account. May not be done if the account is CLOSED
      * 
@@ -44,6 +45,11 @@ public abstract class Account implements java.io.Serializable {
      *         invalid state
      */
     public abstract boolean deposit(float amount);
+    
+    public String toString() {
+        return "Account " + name + " has $" + balance + "and is " + getState()
+                + "\n";
+    }
 
     /**
      * Takes money out of an account. If the balance falls below 0 then the
@@ -55,22 +61,16 @@ public abstract class Account implements java.io.Serializable {
      *         invalid state
      */
     public abstract boolean withdraw(float amount);
-
-    /**
-     * @return either "Checking" or "Savings"
-     */
-    public abstract String getType();
-
-    protected final State getState() {
-        return state;
-    }
-
+    
     protected final void setState(State s) {
         state = s;
     }
+    
+    protected enum State {
+        OPEN, CLOSED, OVERDRAWN
+    };
 
-    public String toString() {
-        return "Account " + name + " has $" + balance + "and is " + getState()
-                + "\n";
-    }
+    protected float balance = 0.0F;
+    protected String name;
+    private State state;
 }
