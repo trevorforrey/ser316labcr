@@ -1,3 +1,13 @@
+
+
+/*
+  File:	Main.java
+  Author: kevingary	
+  Date:	February 19, 2017
+  
+  Description: This is the main class
+*/
+
 package banking.gui;
 
 import javax.swing.JFrame;
