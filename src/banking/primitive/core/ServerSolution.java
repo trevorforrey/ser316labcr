@@ -10,13 +10,13 @@ import banking.primitive.core.Account.State;
 
 class ServerSolution implements AccountServer {
 
-	static String fileName = "accounts.ser";
-
+	static final String fileName = "accounts.ser";
+	private static final float EMPTY = 0.0f;
 	Map<String,Account> accountMap = null;
 
 	public ServerSolution() {
 		accountMap = new HashMap<String,Account>();
-		File file = new File(fileName);
+		File file = new File(FILE_NAME);
 		ObjectInputStream in = null;
 		try {
 			if (file.exists()) {
@@ -71,7 +71,7 @@ class ServerSolution implements AccountServer {
 	public boolean newAccount(String type, String name, float balance) 
 		throws IllegalArgumentException {
 		
-		if (balance < 0.0f) throw new IllegalArgumentException("New account may not be started with a negative balance");
+		if (balance < EMPTY) throw new IllegalArgumentException("New account may not be started with a negative balance");
 		
 		return newAccountFactory(type, name, balance);
 	}
