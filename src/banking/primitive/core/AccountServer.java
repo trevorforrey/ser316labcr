@@ -4,13 +4,19 @@
   Author: kevingary	
   Date:	February 19, 2017
   
-  Description: This is the AccountServer class
+  Description: This is the AccountServer class file
 */
 
 package banking.primitive.core;
 
 import java.io.IOException;
 import java.util.List;
+
+/**
+Class: AccountServer
+
+Description: This is the AccountServer interface
+*/
 
 public interface AccountServer {
 

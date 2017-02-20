@@ -3,10 +3,16 @@
   Author: kevingary	
   Date:	February 19, 2017
   
-  Description: This is a Savings class
+  Description: This is a Savings class file
 */
 
 package banking.primitive.core;
+
+/**
+Class:	Savings
+
+Description: This is a Savings class
+*/
 
 public class Savings extends Account {
 	private static final long serialVersionUID = 111L;

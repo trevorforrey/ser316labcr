@@ -3,10 +3,16 @@
   Author: kevingary	
   Date:	February 19, 2017
   
-  Description: This is a Checking class
+  Description: This is a Checking class file
 */
 
 package banking.primitive.core;
+
+/**
+Class:	Checking
+
+Description: This is a checking class
+*/
 
 public class Checking extends Account {
 

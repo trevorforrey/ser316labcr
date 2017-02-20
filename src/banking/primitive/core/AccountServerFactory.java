@@ -3,11 +3,16 @@
   Author: kevingary	
   Date:	February 19, 2017
   
-  Description: This is the AccountServerFactory class
+  Description: This is the AccountServerFactory class file
 */
 
 package banking.primitive.core;
 
+/**
+Class: AccountServerFactory
+
+Description: This is the AccountServerFactory class
+*/
 
 public class AccountServerFactory {
 

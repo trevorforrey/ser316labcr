@@ -3,10 +3,16 @@
   Author: kevingary	
   Date:	February 19, 2017
   
-  Description: This is an Account class
+  Description: This is an Account class file
 */
 
 package banking.primitive.core;
+
+/**
+Class:	Account
+
+Description: This is the Account class 
+*/
 
 public abstract class Account implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
