@@ -1,3 +1,12 @@
+
+/*
+  File:	AccountServer.java
+  Author: kevingary	
+  Date:	February 19, 2017
+  
+  Description: This is the AccountServer class
+*/
+
 package banking.primitive.core;
 
 import java.io.IOException;

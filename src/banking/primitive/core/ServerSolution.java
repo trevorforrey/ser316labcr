@@ -1,3 +1,12 @@
+
+/*
+  File:	ServerSolution.java
+  Author: kevingary	
+  Date:	February 19, 2017
+  
+  Description: This is the ServerSolution class
+*/
+
 package banking.primitive.core;
 
 import java.util.ArrayList;
