@@ -144,6 +144,7 @@ class ServerSolution implements AccountServer {
 	  Description:saves accounts into a HashMap
 	*/
 	public void saveAccounts() throws IOException {
+		
 		ObjectOutputStream out = null; 
 		try {
 			out = new ObjectOutputStream(new FileOutputStream(fileName));
@@ -156,6 +157,7 @@ class ServerSolution implements AccountServer {
 			e.printStackTrace();
 			throw new IOException("Could not write file:" + fileName);
 		} finally {
+			
 			if (out != null) {
 				try {
 					out.close();
