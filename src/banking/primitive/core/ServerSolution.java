@@ -106,13 +106,20 @@ class ServerSolution implements AccountServer {
 	
 	public void saveAccounts() throws IOException {
 		ObjectOutputStream out = null; 
+		FileOutputStream fos = new FileOutputStream(fileName);
 		try {
-			out = new ObjectOutputStream(new FileOutputStream(fileName));
+			out = new ObjectOutputStream(fos);
 
 			out.writeObject(Integer.valueOf(accountMap.size()));
-			for (int i=0; i < accountMap.size(); i++) {
-				out.writeObject(accountMap.get(i));
+			
+			ArrayList<Account> listOfAccounts = (ArrayList<Account>) getAllAccounts();
+			
+			for (int i=0; i < listOfAccounts.size(); i++) {
+				out.writeObject(listOfAccounts.get(i));
+				System.out.println(listOfAccounts.get(i).getName());
 			}
+			out.close();
+			fos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new IOException("Could not write file:" + fileName);
