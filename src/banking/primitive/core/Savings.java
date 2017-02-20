@@ -1,3 +1,11 @@
+/*
+  File:	Savings.java
+  Author: kevingary	
+  Date:	February 19, 2017
+  
+  Description: This is a Savings class
+*/
+
 package banking.primitive.core;
 
 public class Savings extends Account {

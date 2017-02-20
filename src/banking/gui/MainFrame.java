@@ -1,3 +1,12 @@
+/*
+  File:	MainFrame.java
+  Author: kevingary	
+  Date:	February 19, 2017
+  
+  Description: This is the MainFrame class
+*/
+
+
 package banking.gui;
 
 import banking.primitive.core.Account;
