@@ -35,6 +35,15 @@ class MainFrame extends JFrame {
 	JButton			newAccountButton;
 	JButton			displayAccountsButton;
 	JButton			displayODAccountsButton;
+	
+	
+	/**
+	  Method: MainFrame
+	  Inputs: String
+	  Returns: none
+
+	  Description: Constructor
+	*/
 
 	public MainFrame(String propertyFile) throws IOException {
 

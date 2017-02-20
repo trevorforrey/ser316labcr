@@ -54,6 +54,13 @@ class ServerSolution implements AccountServer {
 		}
 	}
 	
+	/**
+	  Method: newAccountFactory
+	  Inputs: String type, String name, float balance
+	  Returns: boolean value
+
+	  Description: Validates Account type
+	*/
 	private boolean newAccountFactory(String type, String name, float balance)
 		throws IllegalArgumentException {
 		
@@ -77,6 +84,14 @@ class ServerSolution implements AccountServer {
 		return true;
 	}
 
+	/**
+	  Method: newAccount
+	  Inputs: String type, String name, float balance
+	  Returns: boolean value
+
+	  Description: Checks account balance before creating a new account
+	*/
+
 	public boolean newAccount(String type, String name, float balance) 
 		throws IllegalArgumentException {
 		
@@ -85,6 +100,13 @@ class ServerSolution implements AccountServer {
 		return newAccountFactory(type, name, balance);
 	}
 	
+	/**
+	  Method: closeAccount
+	  Inputs: String
+	  Returns: boolean value
+
+	  Description:closing an account
+	*/
 	public boolean closeAccount(String name) {
 		Account acc = accountMap.get(name);
 		if (acc == null) {
@@ -94,6 +116,7 @@ class ServerSolution implements AccountServer {
 		return true;
 	}
 
+	
 	public Account getAccount(String name) {
 		return accountMap.get(name);
 	}
@@ -113,6 +136,13 @@ class ServerSolution implements AccountServer {
 		return result;
 	}
 	
+	/**
+	  Method: saveAccounts
+	  Inputs: none
+	  Returns: void
+
+	  Description:saves accounts into a HashMap
+	*/
 	public void saveAccounts() throws IOException {
 		ObjectOutputStream out = null; 
 		FileOutputStream fos = new FileOutputStream(FILENAME);

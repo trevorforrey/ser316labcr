@@ -3,10 +3,17 @@
   Author: kevingary	
   Date:	February 19, 2017
   
-  Description: This is a Savings class
+  Description: This is a Savings class file
 */
 
 package banking.primitive.core;
+
+
+/**
+Class:	Savings
+
+Description: This is a Savings class
+*/
 
 public class Savings extends Account {
 	private static final long serialVersionUID = 111L;
@@ -24,10 +31,14 @@ public class Savings extends Account {
 	public Savings(String name, float balance) throws IllegalArgumentException {
 		super(name, balance);
 	}
-
+	
 	/**
-	 * A deposit comes with a fee of 50 cents per deposit
-	 */
+	  Method: deposit
+	  Inputs: float
+	  Returns: boolean value
+
+	  Description: A deposit comes with a fee of 50 cents per deposit
+	*/
 	public boolean deposit(float amount) {
 		if (getState() != State.CLOSED && amount > EMPTY) {
 			balance = balance + amount -  DEPOSIT_FEE;
@@ -39,9 +50,14 @@ public class Savings extends Account {
 	}
 
 	/**
-	 * A withdrawal. After 3 withdrawals a fee of $1 is added to each withdrawal.
-	 * An account whose balance dips below 0 is in an OVERDRAWN state
-	 */
+	  Method: withdraw
+	  Inputs: float
+	  Returns: boolean value
+
+	  Description: A withdrawal. After 3 withdrawals a fee of $1 is added to each withdrawal.
+	  An account whose balance dips below 0 is in an OVERDRAWN state
+	*/
+
 	public boolean withdraw(float amount) {
 		if (getState() == State.OPEN && amount > EMPTY) {
 			balance = balance - amount;
@@ -59,6 +75,13 @@ public class Savings extends Account {
 	
 	public String getType() { return "Checking"; }
 
+	/**
+	  Method: toString
+	  Inputs: none
+	  Returns: formated string
+
+	  Description: String formatter
+	*/
 	public String toString() {
 		return "Savings: " + getName() + ": " + getBalance();
 	}
