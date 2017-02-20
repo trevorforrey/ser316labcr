@@ -62,8 +62,11 @@ public class Savings extends Account {
 		if (getState() == State.OPEN && amount > EMPTY) {
 			balance = balance - amount;
 			numWithdraws++;
-			if (numWithdraws > WITHDRAW_THRESHOLD)
+      
+			if (numWithdraws > WITHDRAW_THRESHOLD) {
 				balance = balance - WITHDRAW_PENALTY;
+      }
+
 			// KG BVA: should be < 0
 			if (balance <= EMPTY) {
 				setState(State.OVERDRAWN);
@@ -73,7 +76,9 @@ public class Savings extends Account {
 		return false;
 	}
 	
-	public String getType() { return "Checking"; }
+	public String getType() { 
+		return "Checking"; 
+	}
 
 	/**
 	  Method: toString

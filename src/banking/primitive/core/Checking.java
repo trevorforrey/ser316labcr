@@ -84,8 +84,10 @@ Description:  A deposit may be made unless the Checking account is closed
 			if (getState() == State.OPEN || (getState() == State.OVERDRAWN && balance > -100.0f)) {
 				balance = balance - amount;
 				numWithdraws++;
-				if (numWithdraws > WITHDRAW_THRESHOLD)
+        
+				if (numWithdraws > WITHDRAW_THRESHOLD) {
 					balance = balance - WITHDRAW_PENALTY;
+        }
 				if (balance < EMPTY) {
 					setState(State.OVERDRAWN);
 				}
@@ -95,7 +97,9 @@ Description:  A deposit may be made unless the Checking account is closed
 		return false;
 	}
 
-	public String getType() { return "Checking"; }
+	public String getType() { 
+		return "Checking"; 
+	}
 	
 	/**
 	  Method: toString
