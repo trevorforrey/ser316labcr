@@ -1,8 +1,22 @@
+/*
+  File:	Savings.java
+  Author: kevingary	
+  Date:	February 19, 2017
+  
+  Description: This is a Savings class
+*/
+
 package banking.primitive.core;
 
 public class Savings extends Account {
 	private static final long serialVersionUID = 111L;
+
 	private int _numWithdraws = 0;
+	private static final float EMPTY = 0.0f;
+	private static final float DEPOSIT_FEE = .50f;
+	private static final float WITHDRAW_PENALTY = 1.0f;
+	private static final int WITHDRAW_THRESHOLD = 3;
+
 
 	public Savings(String name) {
 		super(name);
@@ -16,9 +30,9 @@ public class Savings extends Account {
 	 * A deposit comes with a fee of 50 cents per deposit
 	 */
 	public boolean deposit(float amount) {
-		if (getState() != State.CLOSED && amount > 0.0f) {
-			balance = balance + amount - 0.50F;
-			if (balance >= 0.0f) {
+		if (getState() != State.CLOSED && amount > EMPTY) {
+			balance = balance + amount -  DEPOSIT_FEE;
+			if (balance >= EMPTY) {
 				setState(State.OPEN);
 			}
 		}
@@ -30,13 +44,14 @@ public class Savings extends Account {
 	 * An account whose balance dips below 0 is in an OVERDRAWN state
 	 */
 	public boolean withdraw(float amount) {
-		if (getState() == State.OPEN && amount > 0.0f) {
+		if (getState() == State.OPEN && amount > EMPTY) {
 			balance = balance - amount;
 			numWithdraws++;
-			if (_numWithdraws > 3)
-				balance = balance - 1.0f;
+			if (_numWithdraws > WITHDRAW_THRESHOLD)
+				balance = balance - WITHDRAW_PENALTY;
+
 			// KG BVA: should be < 0
-			if (balance <= 0.0f) {
+			if (balance <= EMPTY) {
 				setState(State.OVERDRAWN);
 			}
 			return true;
