@@ -1,3 +1,12 @@
+/*
+  File:	MainFrame.java
+  Author: kevingary	
+  Date:	February 19, 2017
+  
+  Description: This is the MainFrame class
+*/
+
+
 package banking.gui;
 
 import banking.primitive.core.Account;
@@ -26,6 +35,15 @@ class MainFrame extends JFrame {
 	JButton			newAccountButton;
 	JButton			displayAccountsButton;
 	JButton			displayODAccountsButton;
+	
+	
+	/**
+	  Method: MainFrame
+	  Inputs: String
+	  Returns: none
+
+	  Description: Constructor
+	*/
 
 	public MainFrame(String propertyFile) throws IOException {
 

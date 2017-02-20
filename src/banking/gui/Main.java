@@ -1,3 +1,13 @@
+
+
+/*
+  File:	Main.java
+  Author: kevingary	
+  Date:	February 19, 2017
+  
+  Description: This is the main class
+*/
+
 package banking.gui;
 
 import javax.swing.JFrame;
@@ -11,17 +21,23 @@ final class Main {
 	/**
 	 * Private constructor to address STYLE issue.
 	 */
+	private final static int SINGLE_ARG_LENGTH = 1;
+	
 	private Main() {
 	}
 	
+	
 	/**
-	 * All methods should have a Javadoc according to STYLE.
-	 * @param args command-line arguments
-	 * @throws Exception as per typical main specifications
-	 */
+	  Method: main
+	  Inputs: args command-line arguments
+	  Returns: void
+
+	  Description: main method
+	*/
+
 	public static void main(final String[] args) throws Exception {
 
-		if (args.length != 1) {
+		if (args.length != SINGLE_ARG_LENGTH) {
 			System.out.println("Usage: java FormMain <property file>");
 			System.exit(1);
 		}
