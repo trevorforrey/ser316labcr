@@ -19,17 +19,17 @@ import banking.primitive.core.Account.State;
 
 class ServerSolution implements AccountServer {
 
-	static String fileName = "accounts.ser";
-
+	static final String FILENAME = "accounts.ser";
+	private static final float EMPTY = 0.0f;
 	Map<String,Account> accountMap = null;
 
 	public ServerSolution() {
 		accountMap = new HashMap<String,Account>();
-		File file = new File(fileName);
+		File file = new File(FILENAME);
 		ObjectInputStream in = null;
 		try {
 			if (file.exists()) {
-				System.out.println("Reading from file " + fileName + "...");
+				System.out.println("Reading from file " + FILENAME + "...");
 				in = new ObjectInputStream(new FileInputStream(file));
 
 				Integer sizeI = (Integer) in.readObject();
@@ -80,7 +80,7 @@ class ServerSolution implements AccountServer {
 	public boolean newAccount(String type, String name, float balance) 
 		throws IllegalArgumentException {
 		
-		if (balance < 0.0f) throw new IllegalArgumentException("New account may not be started with a negative balance");
+		if (balance < EMPTY) throw new IllegalArgumentException("New account may not be started with a negative balance");
 		
 		return newAccountFactory(type, name, balance);
 	}
@@ -115,10 +115,9 @@ class ServerSolution implements AccountServer {
 	
 	public void saveAccounts() throws IOException {
 		ObjectOutputStream out = null; 
-		FileOutputStream fos = new FileOutputStream(fileName);
+		FileOutputStream fos = new FileOutputStream(FILENAME);
 		try {
 			out = new ObjectOutputStream(fos);
-
 			out.writeObject(Integer.valueOf(accountMap.size()));
 			
 			ArrayList<Account> listOfAccounts = (ArrayList<Account>) getAllAccounts();
@@ -131,7 +130,7 @@ class ServerSolution implements AccountServer {
 			fos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new IOException("Could not write file:" + fileName);
+			throw new IOException("Could not write file:" + FILENAME);
 		} finally {
 			if (out != null) {
 				try {

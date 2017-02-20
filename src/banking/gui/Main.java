@@ -21,6 +21,8 @@ final class Main {
 	/**
 	 * Private constructor to address STYLE issue.
 	 */
+	private final static int SINGLE_ARG_LENGTH = 1;
+	
 	private Main() {
 	}
 	
@@ -31,7 +33,7 @@ final class Main {
 	 */
 	public static void main(final String[] args) throws Exception {
 
-		if (args.length != 1) {
+		if (args.length != SINGLE_ARG_LENGTH) {
 			System.out.println("Usage: java FormMain <property file>");
 			System.exit(1);
 		}
