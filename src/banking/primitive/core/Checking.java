@@ -24,18 +24,39 @@ public class Checking extends Account {
 		super(name);
 	}
 
+	/**
+	  Method: createChecking
+	  Inputs: String
+	  Returns: a new Checking object
+
+	  Description: Creates a new Checking object
+	*/
+
     public static Checking createChecking(String name) {
         return new Checking(name);
     }
+    
 
-	public Checking(String name, float balance) {
+    /**
+	  Method: Checking
+	  Inputs: String, float
+	  Returns: none
+
+	  Description: Constructor
+	*/
+
+public Checking(String name, float balance) {
 		super(name, balance);
 	}
 
-	/**
-	 * A deposit may be made unless the Checking account is closed
-	 * @param float is the deposit amount
-	 */
+
+/**
+Method: deposit
+Inputs: float
+Returns: boolean value
+
+Description:  A deposit may be made unless the Checking account is closed
+*/
 	public boolean deposit(float amount) {
 		if (getState() != State.CLOSED && amount > 0.0f) {
 			balance = balance + amount;
@@ -46,11 +67,13 @@ public class Checking extends Account {
 		}
 		return false;
 	}
-
+	
 	/**
-	 * Withdrawal. After 10 withdrawals a fee of $2 is charged per transaction You may 
-	 * continue to withdraw an overdrawn account until the balance is below -$100
-	 */
+	  Method: withdraw
+	  Inputs: float
+	  Returns: boolean value
+      Description: After 10 withdrawals a fee of $2 is charged per transaction You may continue to withdraw an overdrawn account until the balance is below -$100
+	*/
 	public boolean withdraw(float amount) {
 		if (amount > 0.0f) {		
 			// KG: incorrect, last balance check should be >=
@@ -70,6 +93,13 @@ public class Checking extends Account {
 
 	public String getType() { return "Checking"; }
 	
+	/**
+	  Method: toString
+	  Inputs: none
+	  Returns: formated string
+
+	  Description: String formatter
+	*/
 	public String toString() {
 		return "Checking: " + getName() + ": " + getBalance();
 	}
