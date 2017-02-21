@@ -42,6 +42,9 @@ public abstract class Account implements java.io.Serializable {
         return name;
     }
     
+    /**
+     * @return state of Account
+     */
     protected final State getState() {
         return _state;
     }

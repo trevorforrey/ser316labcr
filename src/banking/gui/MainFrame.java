@@ -6,7 +6,6 @@
   Description: This is the MainFrame class
 */
 
-
 package banking.gui;
 
 import banking.primitive.core.Account;
@@ -21,6 +20,12 @@ import java.awt.event.*;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
+
+/**
+Class:	MainFrame
+
+Description: This is the MainFrame class 
+*/
 class MainFrame extends JFrame {
 	
 	/**
@@ -87,7 +92,6 @@ class MainFrame extends JFrame {
 	
 	//** Complete a handler for the Frame that terminates 
 	//** (System.exit(1)) on windowClosing event
-
 	static class FrameHandler extends WindowAdapter {
 		public void windowClosing(WindowEvent e) {
 
@@ -96,7 +100,6 @@ class MainFrame extends JFrame {
 	}
   
 	// Complete a handler for new account button
-
 		class NewAccountHandler implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				String type = typeOptions.getSelectedItem().toString();
@@ -146,6 +149,13 @@ class MainFrame extends JFrame {
 		}
 	}
 	
+	/**
+	  Method: construcForm
+	  Inputs: none
+	  Returns: nothing
+
+	  Description: Constructs the Main GUI Frame
+	*/
 	private void constructForm() {
 		//*** Make these read from properties
 		typeLabel		= new JLabel(props.getProperty("TypeLabel"));
