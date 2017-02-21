@@ -143,21 +143,27 @@ class MainFrame extends JFrame {
 			JOptionPane.showMessageDialog(null, sb.toString());
 		}
 	}
-
+	
 	// Complete a handler for new account button
-	class NewAccountHandler implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			String type = typeOptions.getSelectedItem().toString();
-			String name = nameField.getText();
-			String balance = balanceField.getText();
-
-			if (myServer.newAccount(type, name, Float.parseFloat(balance))) {
-				JOptionPane.showMessageDialog(null, "Account created successfully");
-			} else {
-				JOptionPane.showMessageDialog(null, "Account not created!");
+		class NewAccountHandler implements ActionListener {
+			public void actionPerformed(ActionEvent e) {
+				String type = typeOptions.getSelectedItem().toString();
+				String name = nameField.getText();
+				String balance = balanceField.getText();
+				
+				try {
+					if (myServer.newAccount(type, name, Float.parseFloat(balance))) {
+						JOptionPane.showMessageDialog(null, "Account created successfully");
+					} 
+					else {
+						JOptionPane.showMessageDialog(null, "Account not created!");
+					}
+				} 
+				catch (NumberFormatException exc) {
+					JOptionPane.showMessageDialog(null, "Account not created!");
+				}
 			}
 		}
-	}
 	
 	// Complete a handler for new account button
 	class SaveAccountsHandler implements ActionListener {
@@ -197,6 +203,8 @@ class MainFrame extends JFrame {
 			}		
 		}
 	}
+	
+	
 	
 	//** Complete a handler for the Frame that terminates 
 	//** (System.exit(1)) on windowClosing event
