@@ -88,6 +88,8 @@ class ServerSolution implements AccountServer {
 		}
 		return true;
 	}
+	
+	
 
 	/**
 	  Method: newAccount
@@ -97,13 +99,30 @@ class ServerSolution implements AccountServer {
 	  Description: Checks account balance before creating a new account
 	*/
 
+	
 	public boolean newAccount(String type, String name, float balance) 
-		throws IllegalArgumentException {
-		
-		if (balance < EMPTY) throw new IllegalArgumentException("New account may not be started with a negative balance");
-		
-		return newAccountFactory(type, name, balance);
-	}
+
+			throws IllegalArgumentException {
+			
+			try {
+				
+			if (balance < 0.0f) {
+				throw new IllegalArgumentException("New account may not be started with a negative balance");
+			}
+			
+			if (name.equals("")){
+				throw new IllegalArgumentException("New account may not be started without a name");
+			}
+			
+			return newAccountFactory(type, name, balance);
+			}
+			catch (IllegalArgumentException exc) {
+				return false;
+			}
+		}
+	
+	
+
 	
 	/**
 	  Method: closeAccount
@@ -149,6 +168,7 @@ class ServerSolution implements AccountServer {
 	  Description:saves accounts into a HashMap
 	*/
 	public void saveAccounts() throws IOException {
+		
 		ObjectOutputStream out = null; 
 		FileOutputStream fos = new FileOutputStream(FILENAME);
 		try {
@@ -166,9 +186,11 @@ class ServerSolution implements AccountServer {
 		} 
     catch (Exception e) {
 			e.printStackTrace();
-			throw new IOException("Could not write file:" + FILENAME);
-		} 
-    finally {
+
+			throw new IOException("Could not write file:" + fileName);
+		} finally {
+			
+
 			if (out != null) {
 				try {
 					out.close();
