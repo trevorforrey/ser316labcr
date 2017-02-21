@@ -46,7 +46,7 @@ public class Savings extends Account {
 	public boolean withdraw(float amount) {
 		if (getState() == State.OPEN && amount > EMPTY) {
 			balance = balance - amount;
-			numWithdraws++;
+			_numWithdraws++;
 			if (_numWithdraws > WITHDRAW_THRESHOLD)
 				balance = balance - WITHDRAW_PENALTY;
 
