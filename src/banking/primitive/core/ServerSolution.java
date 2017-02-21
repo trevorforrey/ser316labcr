@@ -54,11 +54,11 @@ class ServerSolution implements AccountServer {
 		}
 	}
 	
-  public Account getAccount(String name) {
+	public Account getAccount(String name) {
 		return accountMap.get(name);
 	}
       
-  public List<Account> getActiveAccounts() {
+  	public List<Account> getActiveAccounts() {
 		List<Account> result = new ArrayList<Account>();
 
 		for (Account acc : accountMap.values()) {
@@ -93,18 +93,17 @@ class ServerSolution implements AccountServer {
 	  Method: newAccount
 	  Inputs: String type, String name, float balance
 	  Returns: boolean value
-    Description: Checks account balance before creating a new account
+	  
+      Description: Checks account balance before creating a new account
 	*/
-	public boolean newAccount(String type, String name, float balance) 
-			throws IllegalArgumentException {
-			  try {
-			    if (balance < 0.0f) {
-				    throw new IllegalArgumentException("New account may not be started with a negative balance");
-          }
-			    if (name.equals("")){
-				    throw new IllegalArgumentException("New account may not be started without a name");
-			    }
-			
+	public boolean newAccount(String type, String name, float balance) throws IllegalArgumentException {
+		try {
+			if (balance < 0.0f) {
+				throw new IllegalArgumentException("New account may not be started with a negative balance");
+			}
+			if (name.equals("")){
+				throw new IllegalArgumentException("New account may not be started without a name");
+			}
 			  return newAccountFactory(type, name, balance);
 			}
 			catch (IllegalArgumentException exc) {
@@ -112,7 +111,7 @@ class ServerSolution implements AccountServer {
 			}
 	}
   
-  /**
+   /**
 	  Method: newAccountFactory
 	  Inputs: String type, String name, float balance
 	  Returns: boolean value
@@ -140,7 +139,7 @@ class ServerSolution implements AccountServer {
 		catch (Exception exc) {
 			return false;
 		}
-		return result;
+		return true;
 	}
 	
 	/**
@@ -163,17 +162,15 @@ class ServerSolution implements AccountServer {
 			for (int i=0; i < listOfAccounts.size(); i++) {
 				out.writeObject(listOfAccounts.get(i));
 				System.out.println(listOfAccounts.get(i).getName());
-      }
+			}
 			out.close();
 			fos.close();
 		} 
-    catch (Exception e) {
+		catch (Exception e) {
 			e.printStackTrace();
-
-			throw new IOException("Could not write file:" + fileName);
-		} finally {
-			
-
+			throw new IOException("Could not write file:" + FILENAME);
+		} 
+		finally {
 			if (out != null) {
 				try {
 					out.close();
@@ -183,7 +180,7 @@ class ServerSolution implements AccountServer {
 				}
 			}
 		}
-  }
+    }
 
 	static final String FILENAME = "accounts.ser";
 	private static final float EMPTY = 0.0f;

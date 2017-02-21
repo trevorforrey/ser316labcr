@@ -13,9 +13,9 @@ import java.io.IOException;
 import java.util.List;
 
 /**
-Class: AccountServer
+  Class: AccountServer
 
-Description: This is the AccountServer interface
+  Description: This is the AccountServer interface
 */
 
 public interface AccountServer {

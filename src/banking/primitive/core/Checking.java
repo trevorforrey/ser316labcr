@@ -10,9 +10,9 @@ package banking.primitive.core;
 
 
 /**
-Class:	Checking
+  Class:	Checking
 
-Description: This is a checking class
+  Description: This is a checking class
 */
 
 public class Checking extends Account {
@@ -23,43 +23,39 @@ public class Checking extends Account {
 		super(name);
 	}
 	
-	public Checking(String name, float balance) {
+	/**
+	  Method: Checking
+	  Inputs: String, float
+	  Returns: none
+  
+      Description: Constructor
+	*/
+    public Checking(String name, float balance) {
 		super(name, balance);
 	}
-	
-	public String getType() { 
+    
+    public String getType() { 
 		return "Checking"; 
 	}
 
 	/**
-	Method: createChecking
-	Inputs: String
-	Returns: a new Checking object
+	  Method: createChecking
+	  Inputs: String
+	  Returns: a new Checking object
 
-	Description: Creates a new Checking object
+	  Description: Creates a new Checking object
 	*/
-  public static Checking createChecking(String name) {
-      return new Checking(name);
-  }
-
-  /**
-	Method: Checking
-	Inputs: String, float
-	Returns: none
-  
-  Description: Constructor
-	*/
-  public Checking(String name, float balance) {
-		super(name, balance);
+	public static Checking createChecking(String name) {
+	    return new Checking(name);
 	}
-
-  /**
-  Method: deposit
-  Inputs: float
-  Returns: boolean value
-  
-  Description:  A deposit may be made unless the Checking account is closed
-  */
+	
+	/**
+	Method: deposit
+	Inputs: float
+	Returns: boolean value
+	  
+	Description:  A deposit may be made unless the Checking account is closed
+	*/
 	public boolean deposit(float amount) {
 		if (getState() != State.CLOSED && amount > EMPTY) {
 			balance = balance + amount;
@@ -97,7 +93,7 @@ public class Checking extends Account {
 				_numWithdraws++;
 				if (_numWithdraws > WITHDRAW_THRESHOLD) {
 					balance = balance - WITHDRAW_PENALTY;
-        }
+				}
 				if (balance < EMPTY) {
 					setState(State.OVERDRAWN);
 				}

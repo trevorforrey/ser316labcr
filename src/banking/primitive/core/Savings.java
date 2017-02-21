@@ -10,9 +10,9 @@ package banking.primitive.core;
 
 
 /**
-Class:	Savings
+  Class:	Savings
 
-Description: This is a Savings class
+  Description: This is a Savings class
 */
 
 public class Savings extends Account {
@@ -22,6 +22,13 @@ public class Savings extends Account {
 		super(name);
 	}
 
+	/**
+	  Method: Savings
+	  Inputs: String, float
+	  Returns: none
+
+      Description: Constructor
+	*/
 	public Savings(String name, float balance) throws IllegalArgumentException {
 		super(name, balance);
 	}
@@ -67,14 +74,13 @@ public class Savings extends Account {
 	  Description: A withdrawal. After 3 withdrawals a fee of $1 is added to each withdrawal.
 	  An account whose balance dips below 0 is in an OVERDRAWN state
 	*/
-
 	public boolean withdraw(float amount) {
 		if (getState() == State.OPEN && amount > EMPTY) {
 			balance = balance - amount;
 			_numWithdraws++;
 			if (_numWithdraws > WITHDRAW_THRESHOLD) {
 				balance = balance - WITHDRAW_PENALTY;
-      }
+            }
 			// KG BVA: should be < 0
 			if (balance <= EMPTY) {
 				setState(State.OVERDRAWN);

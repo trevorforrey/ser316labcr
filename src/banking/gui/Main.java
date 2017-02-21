@@ -1,5 +1,4 @@
 
-
 /*
   File:	Main.java
   Author: kevingary	
@@ -18,11 +17,12 @@ import javax.swing.JFrame;
  *
  */
 final class Main {
+	
+	private final static int SINGLE_ARG_LENGTH = 1;
+	
 	/**
 	 * Private constructor to address STYLE issue.
 	 */
-	private final static int SINGLE_ARG_LENGTH = 1;
-	
 	private Main() {
 	}
 	
@@ -34,7 +34,6 @@ final class Main {
 
 	  Description: main method
 	*/
-
 	public static void main(final String[] args) throws Exception {
 
 		if (args.length != SINGLE_ARG_LENGTH) {

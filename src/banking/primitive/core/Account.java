@@ -10,9 +10,9 @@ package banking.primitive.core;
 
 
 /**
-Class:	Account
+  Class:	Account
 
-Description: This is the Account class 
+  Description: This is the Account class 
 */
 
 public abstract class Account implements java.io.Serializable {
@@ -71,15 +71,6 @@ public abstract class Account implements java.io.Serializable {
         return "Account " + name + " has $" + balance + "and is " + getState()
                 + "\n";
     }
-
-    /**
-     * 
-     * 
-     * @param parameter
-     *            amount is a withdrawal and must be > 0
-     * @return true if the deposit was successful, false if not due to amount or
-     *         invalid state
-     */
     
     /**
 	  Method: withdraw
@@ -88,7 +79,7 @@ public abstract class Account implements java.io.Serializable {
 
 	  Description: Takes money out of an account. If the balance falls below 0 then the
                     account is moved to an OVERDRAWN state
-	  */
+	*/
     public abstract boolean withdraw(float amount);
     
     protected final void setState(State s) {

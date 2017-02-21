@@ -10,9 +10,9 @@ package banking.primitive.core;
 
 
 /**
-Class: AccountServerFactory
+  Class: AccountServerFactory
 
-Description: This is the AccountServerFactory class
+  Description: This is the AccountServerFactory class
 */
 
 public class AccountServerFactory {
@@ -30,7 +30,6 @@ public class AccountServerFactory {
 
 	  Description: Creates a new AccountServerFactory object when object singleton is null
 	*/
-
 	public static AccountServerFactory getMe() {
 		if (singleton == null) {
 			singleton = new AccountServerFactory();
@@ -46,7 +45,6 @@ public class AccountServerFactory {
 
 	  Description: creates a ServerSolution object
 	*/
-
 	public AccountServer lookup() {
 		return new ServerSolution();
 	}
