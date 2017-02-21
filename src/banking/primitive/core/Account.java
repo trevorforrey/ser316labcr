@@ -1,11 +1,26 @@
+/*
+  File:	Account.java
+  Author: kevingary	
+  Date:	February 19, 2017
+  
+  Description: This is an Account class file
+*/
+
 package banking.primitive.core;
+
+
+/**
+Class:	Account
+
+Description: This is the Account class 
+*/
 
 public abstract class Account implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
 
     protected Account(String n) {
         name = n;
-        state = State.OPEN;
+        _state = State.OPEN;
     }
 
     protected Account(String n, float b) {
@@ -28,7 +43,7 @@ public abstract class Account implements java.io.Serializable {
     }
     
     protected final State getState() {
-        return state;
+        return _state;
     }
     
     /**
@@ -37,33 +52,47 @@ public abstract class Account implements java.io.Serializable {
     public abstract String getType();
     
     /**
-     * Adds money to an account. May not be done if the account is CLOSED
-     * 
-     * @param parameter
-     *            amount is a deposit and must be > 0
-     * @return true if the deposit was successful, false if not due to amount or
-     *         invalid state
-     */
+	  Method: deposit
+	  Inputs: float
+	  Returns: boolean value
+
+	  Description: Adds money to an account. May not be done if the account is CLOSED
+	*/
     public abstract boolean deposit(float amount);
     
+    /**
+	  Method: toString
+	  Inputs: none
+	  Returns: formated string
+
+	  Description: String formatter
+	  */
     public String toString() {
         return "Account " + name + " has $" + balance + "and is " + getState()
                 + "\n";
     }
 
     /**
-     * Takes money out of an account. If the balance falls below 0 then the
-     * account is moved to an OVERDRAWN state
+     * 
      * 
      * @param parameter
      *            amount is a withdrawal and must be > 0
      * @return true if the deposit was successful, false if not due to amount or
      *         invalid state
      */
+    
+    /**
+	  Method: withdraw
+	  Inputs: float
+	  Returns: boolean value
+
+	  Description: Takes money out of an account. If the balance falls below 0 then the
+                    account is moved to an OVERDRAWN state
+	  */
     public abstract boolean withdraw(float amount);
     
     protected final void setState(State s) {
-        state = s;
+        _state = s;
     }
     
     protected enum State {
@@ -72,5 +101,6 @@ public abstract class Account implements java.io.Serializable {
 
     protected float balance = 0.0F;
     protected String name;
-    private State state;
+    private State _state;
+
 }
