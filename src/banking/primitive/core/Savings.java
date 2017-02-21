@@ -17,12 +17,13 @@ Description: This is a Savings class
 
 public class Savings extends Account {
 	private static final long serialVersionUID = 111L;
-	private int numWithdraws = 0;
-	
+
+	private int _numWithdraws = 0;
 	private static final float EMPTY = 0.0f;
 	private static final float DEPOSIT_FEE = .50f;
 	private static final float WITHDRAW_PENALTY = 1.0f;
 	private static final int WITHDRAW_THRESHOLD = 3;
+
 
 	public Savings(String name) {
 		super(name);
@@ -62,12 +63,10 @@ public class Savings extends Account {
 	public boolean withdraw(float amount) {
 		if (getState() == State.OPEN && amount > EMPTY) {
 			balance = balance - amount;
-			numWithdraws++;
-      
-			if (numWithdraws > WITHDRAW_THRESHOLD) {
+			_numWithdraws++;
+			if (_numWithdraws > WITHDRAW_THRESHOLD) {
 				balance = balance - WITHDRAW_PENALTY;
       }
-
 			// KG BVA: should be < 0
 			if (balance <= EMPTY) {
 				setState(State.OVERDRAWN);

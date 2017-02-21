@@ -18,7 +18,7 @@ Description: This is a checking class
 public class Checking extends Account {
 
 	private static final long serialVersionUID = 11L;
-	private int numWithdraws = 0;
+	private int _numWithdraws = 0;
 	
 	private static final float EMPTY = 0.0f;
 	private static final float WITHDRAW_PENALTY = 2.0f;
@@ -83,9 +83,8 @@ Description:  A deposit may be made unless the Checking account is closed
 			// KG: incorrect, last balance check should be >=
 			if (getState() == State.OPEN || (getState() == State.OVERDRAWN && balance > -100.0f)) {
 				balance = balance - amount;
-				numWithdraws++;
-        
-				if (numWithdraws > WITHDRAW_THRESHOLD) {
+				_numWithdraws++;
+				if (_numWithdraws > WITHDRAW_THRESHOLD) {
 					balance = balance - WITHDRAW_PENALTY;
         }
 				if (balance < EMPTY) {
