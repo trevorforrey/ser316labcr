@@ -26,11 +26,15 @@ final class Main {
 	private Main() {
 	}
 	
+	
 	/**
-	 * All methods should have a Javadoc according to STYLE.
-	 * @param args command-line arguments
-	 * @throws Exception as per typical main specifications
-	 */
+	  Method: main
+	  Inputs: args command-line arguments
+	  Returns: void
+
+	  Description: main method
+	*/
+
 	public static void main(final String[] args) throws Exception {
 
 		if (args.length != SINGLE_ARG_LENGTH) {

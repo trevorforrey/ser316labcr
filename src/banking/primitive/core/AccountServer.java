@@ -4,7 +4,7 @@
   Author: kevingary	
   Date:	February 19, 2017
   
-  Description: This is the AccountServer class
+  Description: This is the AccountServer class file
 */
 
 package banking.primitive.core;
@@ -12,23 +12,30 @@ package banking.primitive.core;
 import java.io.IOException;
 import java.util.List;
 
-public interface AccountServer {
+/**
+Class: AccountServer
 
-	/** 
-	 *  Create a new account object in the server. if an account already exists with the given name
-	 *  then a new account is not created and stored.
-	 *  
-		@param type must be one of Savings or Checking
-		@param name leading or trailing whitespace is removed
-		@param balance must be non-negative
-		@throws IllegalArgumentException if the account type is invalid or the balance is non-negative.
-		@return boolean true if the account was created and stored, false otherwise
+Description: This is the AccountServer interface
+*/
+
+public interface AccountServer {
+	
+	/**
+	  Method: newAccount
+	  Inputs: String type, String name, float balance
+	  Returns: boolean true if the account was created and stored, false otherwise
+
+	  Description: Create a new account object in the server. if an account already exists with the given name then a new account is not created and stored.
 	*/
 	public boolean	newAccount(String type, String name, float balance) throws IllegalArgumentException;
 
-	/** Close an account 
-		@param name leading or trailing whitespace is removed
-	 * @return boolean true if there was an account with this name and close was successful
+	
+	/**
+	  Method: closeAccount
+	  Inputs: String
+	  Returns: boolean true if there was an account with this name and close was successful
+
+	  Description: Close an account 
 	*/
 	public boolean	closeAccount(String name);
 
@@ -48,9 +55,13 @@ public interface AccountServer {
 	 */
 	public List<Account> getActiveAccounts();
 
-	/** 
-	 * Saves the state of the server
-	 * @throws IOException if unable to save the state
-	 */
+	
+	/**
+	  Method: saveAccounts
+	  Inputs: none
+	  Returns: void
+
+	  Description: Saves the state of the server
+	*/
 	public void	saveAccounts() throws IOException;
 }

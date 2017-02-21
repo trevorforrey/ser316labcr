@@ -36,24 +36,35 @@ class ServerSolution implements AccountServer {
 				int size = sizeI.intValue();
 				for (int i=0; i < size; i++) {
 					Account acc = (Account) in.readObject();
-					if (acc != null)
+					if (acc != null) {
 						accountMap.put(acc.getName(), acc);
+					}
 				}
 			}
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
-		} finally {
+		} 
+		finally {
 			if (in != null) {
 				try {
 					in.close();
-				} catch (Throwable t) {
+				} 
+				catch (Throwable t) {
 					t.printStackTrace();
 				}
 			}
 		}
 	}
 	
+	/**
+	  Method: newAccountFactory
+	  Inputs: String type, String name, float balance
+	  Returns: boolean value
+
+	  Description: Validates Account type
+	*/
 	private boolean newAccountFactory(String type, String name, float balance)
 		throws IllegalArgumentException {
 		
@@ -62,20 +73,29 @@ class ServerSolution implements AccountServer {
 		Account acc;
 		if ("Checking".equals(type)) {
 			acc = new Checking(name, balance);
-
-		} else if ("Savings".equals(type)) {
+		}
+		else if ("Savings".equals(type)) {
 			acc = new Savings(name, balance);
-
-		} else {
+		} 
+		else {
 			throw new IllegalArgumentException("Bad account type:" + type);
 		}
 		try {
 			accountMap.put(acc.getName(), acc);
-		} catch (Exception exc) {
+		} 
+		catch (Exception exc) {
 			return false;
 		}
 		return true;
 	}
+
+	/**
+	  Method: newAccount
+	  Inputs: String type, String name, float balance
+	  Returns: boolean value
+
+	  Description: Checks account balance before creating a new account
+	*/
 
 	public boolean newAccount(String type, String name, float balance) 
 		throws IllegalArgumentException {
@@ -85,6 +105,13 @@ class ServerSolution implements AccountServer {
 		return newAccountFactory(type, name, balance);
 	}
 	
+	/**
+	  Method: closeAccount
+	  Inputs: String
+	  Returns: boolean value
+
+	  Description:closing an account
+	*/
 	public boolean closeAccount(String name) {
 		Account acc = accountMap.get(name);
 		if (acc == null) {
@@ -94,6 +121,7 @@ class ServerSolution implements AccountServer {
 		return true;
 	}
 
+	
 	public Account getAccount(String name) {
 		return accountMap.get(name);
 	}
@@ -113,6 +141,13 @@ class ServerSolution implements AccountServer {
 		return result;
 	}
 	
+	/**
+	  Method: saveAccounts
+	  Inputs: none
+	  Returns: void
+
+	  Description:saves accounts into a HashMap
+	*/
 	public void saveAccounts() throws IOException {
 		ObjectOutputStream out = null; 
 		FileOutputStream fos = new FileOutputStream(FILENAME);
@@ -125,17 +160,20 @@ class ServerSolution implements AccountServer {
 			for (int i=0; i < listOfAccounts.size(); i++) {
 				out.writeObject(listOfAccounts.get(i));
 				System.out.println(listOfAccounts.get(i).getName());
-			}
+      }
 			out.close();
 			fos.close();
-		} catch (Exception e) {
+		} 
+    catch (Exception e) {
 			e.printStackTrace();
 			throw new IOException("Could not write file:" + FILENAME);
-		} finally {
+		} 
+    finally {
 			if (out != null) {
 				try {
 					out.close();
-				} catch (Throwable t) {
+				} 
+				catch (Throwable t) {
 					t.printStackTrace();
 				}
 			}

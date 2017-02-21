@@ -3,10 +3,17 @@
   Author: kevingary	
   Date:	February 19, 2017
   
-  Description: This is a Checking class
+  Description: This is a Checking class file
 */
 
 package banking.primitive.core;
+
+
+/**
+Class:	Checking
+
+Description: This is a checking class
+*/
 
 public class Checking extends Account {
 
@@ -21,18 +28,39 @@ public class Checking extends Account {
 		super(name);
 	}
 
+	/**
+	  Method: createChecking
+	  Inputs: String
+	  Returns: a new Checking object
+
+	  Description: Creates a new Checking object
+	*/
+
     public static Checking createChecking(String name) {
         return new Checking(name);
     }
+    
 
-	public Checking(String name, float balance) {
+    /**
+	  Method: Checking
+	  Inputs: String, float
+	  Returns: none
+
+	  Description: Constructor
+	*/
+
+public Checking(String name, float balance) {
 		super(name, balance);
 	}
 
-	/**
-	 * A deposit may be made unless the Checking account is closed
-	 * @param float is the deposit amount
-	 */
+
+/**
+Method: deposit
+Inputs: float
+Returns: boolean value
+
+Description:  A deposit may be made unless the Checking account is closed
+*/
 	public boolean deposit(float amount) {
 		if (getState() != State.CLOSED && amount > EMPTY) {
 			balance = balance + amount;
@@ -43,19 +71,22 @@ public class Checking extends Account {
 		}
 		return false;
 	}
-
+	
 	/**
-	 * Withdrawal. After 10 withdrawals a fee of $2 is charged per transaction You may 
-	 * continue to withdraw an overdrawn account until the balance is below -$100
-	 */
+	  Method: withdraw
+	  Inputs: float
+	  Returns: boolean value
+      Description: After 10 withdrawals a fee of $2 is charged per transaction You may continue to withdraw an overdrawn account until the balance is below -$100
+	*/
 	public boolean withdraw(float amount) {
 		if (amount > EMPTY) {		
 			// KG: incorrect, last balance check should be >=
 			if (getState() == State.OPEN || (getState() == State.OVERDRAWN && balance > -100.0f)) {
 				balance = balance - amount;
 				_numWithdraws++;
-				if (_numWithdraws > WITHDRAW_THRESHOLD)
+				if (_numWithdraws > WITHDRAW_THRESHOLD) {
 					balance = balance - WITHDRAW_PENALTY;
+        }
 				if (balance < EMPTY) {
 					setState(State.OVERDRAWN);
 				}
@@ -65,8 +96,17 @@ public class Checking extends Account {
 		return false;
 	}
 
-	public String getType() { return "Checking"; }
+	public String getType() { 
+		return "Checking"; 
+	}
 	
+	/**
+	  Method: toString
+	  Inputs: none
+	  Returns: formated string
+
+	  Description: String formatter
+	*/
 	public String toString() {
 		return "Checking: " + getName() + ": " + getBalance();
 	}
