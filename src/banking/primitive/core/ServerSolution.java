@@ -19,35 +19,39 @@ import banking.primitive.core.Account.State;
 
 class ServerSolution implements AccountServer {
 
-	static String fileName = "accounts.ser";
-
+	static final String FILENAME = "accounts.ser";
+	private static final float EMPTY = 0.0f;
 	Map<String,Account> accountMap = null;
 
 	public ServerSolution() {
 		accountMap = new HashMap<String,Account>();
-		File file = new File(fileName);
+		File file = new File(FILENAME);
 		ObjectInputStream in = null;
 		try {
 			if (file.exists()) {
-				System.out.println("Reading from file " + fileName + "...");
+				System.out.println("Reading from file " + FILENAME + "...");
 				in = new ObjectInputStream(new FileInputStream(file));
 
 				Integer sizeI = (Integer) in.readObject();
 				int size = sizeI.intValue();
 				for (int i=0; i < size; i++) {
 					Account acc = (Account) in.readObject();
-					if (acc != null)
+					if (acc != null) {
 						accountMap.put(acc.getName(), acc);
+					}
 				}
 			}
-		} catch (Exception e) {
+		} 
+		catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
-		} finally {
+		} 
+		finally {
 			if (in != null) {
 				try {
 					in.close();
-				} catch (Throwable t) {
+				} 
+				catch (Throwable t) {
 					t.printStackTrace();
 				}
 			}
@@ -69,16 +73,17 @@ class ServerSolution implements AccountServer {
 		Account acc;
 		if ("Checking".equals(type)) {
 			acc = new Checking(name, balance);
-
-		} else if ("Savings".equals(type)) {
+		}
+		else if ("Savings".equals(type)) {
 			acc = new Savings(name, balance);
-
-		} else {
+		} 
+		else {
 			throw new IllegalArgumentException("Bad account type:" + type);
 		}
 		try {
 			accountMap.put(acc.getName(), acc);
-		} catch (Exception exc) {
+		} 
+		catch (Exception exc) {
 			return false;
 		}
 		return true;
@@ -96,6 +101,7 @@ class ServerSolution implements AccountServer {
 
 	
 	public boolean newAccount(String type, String name, float balance) 
+
 			throws IllegalArgumentException {
 			
 			try {
@@ -116,6 +122,7 @@ class ServerSolution implements AccountServer {
 		}
 	
 	
+
 	
 	/**
 	  Method: closeAccount
@@ -163,22 +170,32 @@ class ServerSolution implements AccountServer {
 	public void saveAccounts() throws IOException {
 		
 		ObjectOutputStream out = null; 
+		FileOutputStream fos = new FileOutputStream(FILENAME);
 		try {
-			out = new ObjectOutputStream(new FileOutputStream(fileName));
-
+			out = new ObjectOutputStream(fos);
 			out.writeObject(Integer.valueOf(accountMap.size()));
-			for (int i=0; i < accountMap.size(); i++) {
-				out.writeObject(accountMap.get(i));
-			}
-		} catch (Exception e) {
+			
+			ArrayList<Account> listOfAccounts = (ArrayList<Account>) getAllAccounts();
+			
+			for (int i=0; i < listOfAccounts.size(); i++) {
+				out.writeObject(listOfAccounts.get(i));
+				System.out.println(listOfAccounts.get(i).getName());
+      }
+			out.close();
+			fos.close();
+		} 
+    catch (Exception e) {
 			e.printStackTrace();
+
 			throw new IOException("Could not write file:" + fileName);
 		} finally {
 			
+
 			if (out != null) {
 				try {
 					out.close();
-				} catch (Throwable t) {
+				} 
+				catch (Throwable t) {
 					t.printStackTrace();
 				}
 			}
