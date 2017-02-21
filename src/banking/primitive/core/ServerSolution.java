@@ -19,10 +19,6 @@ import banking.primitive.core.Account.State;
 
 class ServerSolution implements AccountServer {
 
-	static final String FILENAME = "accounts.ser";
-	private static final float EMPTY = 0.0f;
-	Map<String,Account> accountMap = null;
-
 	public ServerSolution() {
 		accountMap = new HashMap<String,Account>();
 		File file = new File(FILENAME);
@@ -58,7 +54,65 @@ class ServerSolution implements AccountServer {
 		}
 	}
 	
+  public Account getAccount(String name) {
+		return accountMap.get(name);
+	}
+      
+  public List<Account> getActiveAccounts() {
+		List<Account> result = new ArrayList<Account>();
+
+		for (Account acc : accountMap.values()) {
+			if (acc.getState() != State.CLOSED) {
+				result.add(acc);
+			}
+		}
+		return result;
+	}
+
+	public List<Account> getAllAccounts() {
+		return new ArrayList<Account>(accountMap.values());
+	}
+	
 	/**
+	  Method: closeAccount
+	  Inputs: String
+	  Returns: boolean value
+
+	  Description:closing an account
+	*/
+	public boolean closeAccount(String name) {
+		Account acc = accountMap.get(name);
+		if (acc == null) {
+			return false;
+		}
+		acc.setState(State.CLOSED);
+		return true;
+	}
+
+	/**
+	  Method: newAccount
+	  Inputs: String type, String name, float balance
+	  Returns: boolean value
+    Description: Checks account balance before creating a new account
+	*/
+	public boolean newAccount(String type, String name, float balance) 
+			throws IllegalArgumentException {
+			  try {
+			    if (balance < 0.0f) {
+				    throw new IllegalArgumentException("New account may not be started with a negative balance");
+          }
+			    if (name.equals("")){
+				    throw new IllegalArgumentException("New account may not be started without a name");
+			    }
+			
+			  return newAccountFactory(type, name, balance);
+			}
+			catch (IllegalArgumentException exc) {
+				return false;
+			}
+	}
+  
+  /**
 	  Method: newAccountFactory
 	  Inputs: String type, String name, float balance
 	  Returns: boolean value
@@ -85,77 +139,6 @@ class ServerSolution implements AccountServer {
 		} 
 		catch (Exception exc) {
 			return false;
-		}
-		return true;
-	}
-	
-	
-
-	/**
-	  Method: newAccount
-	  Inputs: String type, String name, float balance
-	  Returns: boolean value
-
-	  Description: Checks account balance before creating a new account
-	*/
-
-	
-	public boolean newAccount(String type, String name, float balance) 
-
-			throws IllegalArgumentException {
-			
-			try {
-				
-			if (balance < 0.0f) {
-				throw new IllegalArgumentException("New account may not be started with a negative balance");
-			}
-			
-			if (name.equals("")){
-				throw new IllegalArgumentException("New account may not be started without a name");
-			}
-			
-			return newAccountFactory(type, name, balance);
-			}
-			catch (IllegalArgumentException exc) {
-				return false;
-			}
-		}
-	
-	
-
-	
-	/**
-	  Method: closeAccount
-	  Inputs: String
-	  Returns: boolean value
-
-	  Description:closing an account
-	*/
-	public boolean closeAccount(String name) {
-		Account acc = accountMap.get(name);
-		if (acc == null) {
-			return false;
-		}
-		acc.setState(State.CLOSED);
-		return true;
-	}
-
-	
-	public Account getAccount(String name) {
-		return accountMap.get(name);
-	}
-
-	public List<Account> getAllAccounts() {
-		return new ArrayList<Account>(accountMap.values());
-	}
-
-	public List<Account> getActiveAccounts() {
-		List<Account> result = new ArrayList<Account>();
-
-		for (Account acc : accountMap.values()) {
-			if (acc.getState() != State.CLOSED) {
-				result.add(acc);
-			}
 		}
 		return result;
 	}
@@ -200,6 +183,9 @@ class ServerSolution implements AccountServer {
 				}
 			}
 		}
-	}
+  }
 
+	static final String FILENAME = "accounts.ser";
+	private static final float EMPTY = 0.0f;
+	Map<String,Account> accountMap = null;
 }

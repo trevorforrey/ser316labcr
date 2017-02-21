@@ -18,49 +18,48 @@ Description: This is a checking class
 public class Checking extends Account {
 
 	private static final long serialVersionUID = 11L;
-	private int _numWithdraws = 0;
-	
-	private static final float EMPTY = 0.0f;
-	private static final float WITHDRAW_PENALTY = 2.0f;
-	private static final int WITHDRAW_THRESHOLD = 10;
 	
 	private Checking(String name) {
 		super(name);
 	}
+	
+	public Checking(String name, float balance) {
+		super(name, balance);
+	}
+	
+	public String getType() { 
+		return "Checking"; 
+	}
 
 	/**
-	  Method: createChecking
-	  Inputs: String
-	  Returns: a new Checking object
+	Method: createChecking
+	Inputs: String
+	Returns: a new Checking object
 
-	  Description: Creates a new Checking object
+	Description: Creates a new Checking object
 	*/
+  public static Checking createChecking(String name) {
+      return new Checking(name);
+  }
 
-    public static Checking createChecking(String name) {
-        return new Checking(name);
-    }
-    
-
-    /**
-	  Method: Checking
-	  Inputs: String, float
-	  Returns: none
-
-	  Description: Constructor
+  /**
+	Method: Checking
+	Inputs: String, float
+	Returns: none
+  
+  Description: Constructor
 	*/
-
-public Checking(String name, float balance) {
+  public Checking(String name, float balance) {
 		super(name, balance);
 	}
 
-
-/**
-Method: deposit
-Inputs: float
-Returns: boolean value
-
-Description:  A deposit may be made unless the Checking account is closed
-*/
+  /**
+  Method: deposit
+  Inputs: float
+  Returns: boolean value
+  
+  Description:  A deposit may be made unless the Checking account is closed
+  */
 	public boolean deposit(float amount) {
 		if (getState() != State.CLOSED && amount > EMPTY) {
 			balance = balance + amount;
@@ -73,10 +72,22 @@ Description:  A deposit may be made unless the Checking account is closed
 	}
 	
 	/**
+	  Method: toString
+	  Inputs: none
+	  Returns: formated string
+
+	  Description: String formatter
+	*/
+	public String toString() {
+		return "Checking: " + getName() + ": " + getBalance();
+	}
+
+	/**
 	  Method: withdraw
 	  Inputs: float
 	  Returns: boolean value
-      Description: After 10 withdrawals a fee of $2 is charged per transaction You may continue to withdraw an overdrawn account until the balance is below -$100
+    
+    Description: After 10 withdrawals a fee of $2 is charged per transaction You may continue to withdraw an overdrawn account until the balance is below -$100
 	*/
 	public boolean withdraw(float amount) {
 		if (amount > EMPTY) {		
@@ -96,18 +107,8 @@ Description:  A deposit may be made unless the Checking account is closed
 		return false;
 	}
 
-	public String getType() { 
-		return "Checking"; 
-	}
-	
-	/**
-	  Method: toString
-	  Inputs: none
-	  Returns: formated string
-
-	  Description: String formatter
-	*/
-	public String toString() {
-		return "Checking: " + getName() + ": " + getBalance();
-	}
+	private int _numWithdraws = 0;
+	private static final float EMPTY = 0.0f;
+	private static final float WITHDRAW_PENALTY = 2.0f;
+	private static final int WITHDRAW_THRESHOLD = 10;
 }

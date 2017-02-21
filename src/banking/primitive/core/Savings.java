@@ -18,13 +18,6 @@ Description: This is a Savings class
 public class Savings extends Account {
 	private static final long serialVersionUID = 111L;
 
-	private int _numWithdraws = 0;
-	private static final float EMPTY = 0.0f;
-	private static final float DEPOSIT_FEE = .50f;
-	private static final float WITHDRAW_PENALTY = 1.0f;
-	private static final int WITHDRAW_THRESHOLD = 3;
-
-
 	public Savings(String name) {
 		super(name);
 	}
@@ -33,6 +26,10 @@ public class Savings extends Account {
 		super(name, balance);
 	}
 	
+	public String getType() { 
+		return "Checking";
+	}
+
 	/**
 	  Method: deposit
 	  Inputs: float
@@ -49,6 +46,17 @@ public class Savings extends Account {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	  Method: toString
+	  Inputs: none
+	  Returns: formated string
+
+	  Description: String formatter
+	*/
+	public String toString() {
+		return "Savings: " + getName() + ": " + getBalance();
 	}
 
 	/**
@@ -76,18 +84,9 @@ public class Savings extends Account {
 		return false;
 	}
 	
-	public String getType() { 
-		return "Checking"; 
-	}
-
-	/**
-	  Method: toString
-	  Inputs: none
-	  Returns: formated string
-
-	  Description: String formatter
-	*/
-	public String toString() {
-		return "Savings: " + getName() + ": " + getBalance();
-	}
+	private int _numWithdraws = 0;
+	private static final float EMPTY = 0.0f;
+	private static final float DEPOSIT_FEE = .50f;
+	private static final float WITHDRAW_PENALTY = 1.0f;
+	private static final int WITHDRAW_THRESHOLD = 3;
 }
